@@ -22,3 +22,38 @@ def serverConnect():
 
     return pymysql.connect(host=host, port=port, user=user, password=pwd,  db=dbName,
                                charset='utf8mb4', cursorclass=pymysql.cursors.DictCursor)
+
+
+if __name__ == '__main__':
+    import pymysql.cursors
+    connection = serverConnect()
+    try:
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "INSERT INTO `caption` (`mac_address`, `name`) VALUES (%s, %s)"
+            cursor.execute(sql, ('mac1', 'nom1'))
+
+        # connection is not autocommit by default. So you must commit to save
+        # your changes.
+        connection.commit()
+        cursor.close()
+
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "INSERT INTO `caption` (`mac_address`, `name`) VALUES (%s, %s)"
+            cursor.execute(sql, ('mac2', 'nom2'))
+        # connection is not autocommit by default. So you must commit to save
+        # your changes.
+        connection.commit()
+        cursor.close()
+
+        with connection.cursor() as cursor:
+            # Read a single record
+            sql = "SELECT `mac_address`, `name` FROM `caption`"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            for r in result:
+                print(r)
+
+    finally:
+        connection.close()
