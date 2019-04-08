@@ -84,6 +84,7 @@ class CaptionDAO:
         connection.close()
 
 if __name__ == '__main__':
+    aCaption = None
     for caption in CaptionDAO.getAll():
         print("Adresse Mac:{0} Nom:{1}".format(caption.macAddress, caption.name))
         aCaption = caption
