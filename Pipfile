@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 bluepy = "*"
+mysqlclient = "*"
+mysql-connector-python = "*"
+urllib2 = "*"
 
 [requires]
 python_version = "3.5"
