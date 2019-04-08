@@ -1,20 +1,27 @@
-import urllib2
-import time
-
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
 
-msg = MIMEMultipart()
-msg['From'] = 'gaetan.coleno@gmail.com'
-msg['To'] = 'gaetan.coleno@gmail.com'
-msg['Subject'] = 'Temps de réponse: {0} {1}s'.format(name, t2)
-message = 'Temps de réponse: {0} - {1}'.format(t2, adresses_ip)
-msg.attach(MIMEText(message))
-mailserver = smtplib.SMTP('smtp.gmail.com', 587)
-mailserver.ehlo()
-mailserver.starttls()
-mailserver.ehlo()
-mailserver.login('gaetan.coleno@gmail.com', '')
-mailserver.sendmail('gaetan.coleno@gmail.com', msg.as_string())
-mailserver.quit();
+TO = 'recipient@mailservice.com'
+SUBJECT = 'TEST MAIL'
+TEXT = 'Here is a message from python.'
+
+# Gmail Sign In
+gmail_sender = 'gaetan.coleno@gmail.com'
+gmail_passwd = 'password'
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.ehlo()
+server.starttls()
+server.login(gmail_sender, gmail_passwd)
+
+BODY = '\r\n'.join(['To: %s' % TO,
+                    'From: %s' % gmail_sender,
+                    'Subject: %s' % SUBJECT,
+                    '', TEXT])
+
+try:
+    server.sendmail(gmail_sender, [TO], BODY)
+    print ('email sent')
+except:
+    print ('error sending mail')
+
+server.quit()
