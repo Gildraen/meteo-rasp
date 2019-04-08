@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+# -*-coding:utf-8 -*
+
+
+class Collect:
+    """
+    Classe représentant la collecte d'une donnée par un capteur
+    """
+
+    def __init__(self, data, caption, date, value):
+        """ Constructeur qui initialise les attributs"""
+        self.data = data
+        self.caption = caption
+        self.date = date
+        self.value = value
