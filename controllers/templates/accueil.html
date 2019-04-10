@@ -11,8 +11,35 @@
 		<ul>
 			{% for capteur in capteurs %}
 			<li>{{capteur['name']}} </li>
+			<table>
+			<th>
+			
+			{{capteur['name']}} 
+			
+			</th>
+			<tr>
+			<td>Humidité</td>
+			<td>{{capteur ['humidity']}}</td>
+			</tr>
+			
+			<tr>
+			<td>Température</td>
+			<td>{{capteur ['temperature']}}</td>
+			</tr>
+			
+			<tr>
+			<td>Batterie</td>
+			<td>{{capteur ['battery']}}</td>
+			</tr>
+			
+			
+			</table>
+			
+			
 			{% endfor %}
 		</ul>
+		
+
 
     </body>
 </html>

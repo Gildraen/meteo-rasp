@@ -12,9 +12,14 @@ app = Flask(__name__)
 @app.route('/')
 def accueil():
 
-    capteurs = CaptionDAO.getAll()
+	capteurs = CaptionDAO.getAll()
+    data = {}
+	
+	for capteur in capteurs
+		collects = CollectDAO.getAll(capteur.macAddress)
+		data[capteur] = collects
 
-    return render_template('accueil.html', capteurs=capteurs)
+    return render_template('accueil.html', data=data)
 	
 	
 if __name__ == '__main__':
