@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 # -*-coding:utf-8 -*
 
-from entity.caption import Caption
-from repo.db_connection import serverConnect
+import sys
+sys.path.append('/home/projects/meteo-rasp/entity')
+from caption import Caption
+from db_connection import serverConnect
 
 
 class CaptionDAO:

@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # -*-coding:utf-8 -*
 
-from entity.data import Data
-from entity.caption import Caption
-from entity.collect import Collect
-from repo.db_connection import serverConnect
+import sys
+sys.path.append('/home/projects/meteo-rasp/entity')
+from data import Data
+from caption import Caption
+from collect import Collect
+from db_connection import serverConnect
 
 
 class CollectDAO:
