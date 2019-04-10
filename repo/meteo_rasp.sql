@@ -107,7 +107,8 @@ CREATE TABLE IF NOT EXISTS `data` (
 
 INSERT INTO `data` (`id`, `name`, `unit`) VALUES
 (1, 'Température', '°'),
-(2, 'Humidité', '%');
+(2, 'Humidité', '%'),
+(3, 'Batterie', '%');
 
 -- --------------------------------------------------------
 

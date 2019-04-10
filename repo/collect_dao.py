@@ -61,31 +61,14 @@ class CollectDAO:
         return result
 
     @staticmethod
-    def getAllByCaptionMacAddress(macAddress):
+    def update(collect):
         """
-        :param macAddress: String
-        :return: Collect
-        """
-        con = serverConnect()
-        result = None
-        with con:
-            cur = con.cursor()
-            cur.execute("SELECT `address`, `firstname`, `lastname` FROM `contact` WHERE `address` = %s", email)
-            fetch = cur.fetchone()
-            result = Collect(fetch["address"], fetch["firstname"], fetch["lastname"])
-            cur.close()
-        con.close()
-        return result
-
-    @staticmethod
-    def update(contact):
-        """
-        :param contact: Contact
+        :param collect: Collect
         """
         connection = serverConnect()
         with connection.cursor() as cursor:
-            sql = "UPDATE `contact` SET `firstname` =%s, `lastname` =%s WHERE `address` = %s"
-            cursor.execute(sql, (contact.firstname, contact.lastname, contact.email))
+            sql = "UPDATE `collect` SET `id_data` =%s, `mac_address` =%s, `date` =%s, `value` =%s WHERE `id` = %s"
+            cursor.execute(sql, (collect.data.id, collect.caption.macAddress, collect.date, collect.value, collect.id))
         connection.commit()
         cursor.close()
         connection.close()
