@@ -20,8 +20,7 @@ def accueil():
 		data[capteur] = collects
 
     return render_template('accueil.html', data=data)
-	
-	
+		
 if __name__ == '__main__':
     app.run(debug=True)
     print('toto')
