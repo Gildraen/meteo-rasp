@@ -4,7 +4,6 @@
 from entity.data import Data
 from entity.caption import Caption
 from entity.collect import Collect
-from repo.data_dao import DataDAO
 from repo.db_connection import serverConnect
 
 

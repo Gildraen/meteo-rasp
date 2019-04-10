@@ -124,6 +124,14 @@ CREATE TABLE IF NOT EXISTS `recipient` (
   KEY `recipient_threshold0_FK` (`id_threshold`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `recipient` (`address`, `id_threshold`) VALUES
+('contact1@gmail.com', 1),
+('contact2@gmail.com', 1),
+('contact3@gmail.com', 1),
+('contact2@gmail.com', 2),
+('contact3@gmail.com', 2),
+('contact3@gmail.com', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -137,12 +145,17 @@ CREATE TABLE IF NOT EXISTS `threshold` (
   `higher` tinyint(1) NOT NULL,
   `last_date` datetime DEFAULT NULL,
   `frequency` int(11) NOT NULL,
-  `id_Data` int(11) NOT NULL,
+  `id_data` int(11) NOT NULL,
   `mac_address` varchar(17) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `threshold_Data_FK` (`id_Data`),
+  KEY `threshold_data_FK` (`id_data`),
   KEY `threshold_caption0_FK` (`mac_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `threshold` (`id`, `value`, `higher`, `last_date`, `frequency`, `id_data`, `mac_address`) VALUES
+(1, '11', 1, '2019-04-10 15:16:00', 5, 1, 'd6:c6:c7:39:a2:e8'),
+(2, '12', 1, '2019-04-10 15:16:00', 22, 1, 'd6:c6:c7:39:a2:e8'),
+(3, '13', 1, '2019-04-10 15:16:00', 23, 1, 'd6:c6:c7:39:a2:e8');
 
 --
 -- Contraintes pour les tables déchargées
@@ -160,13 +173,13 @@ ALTER TABLE `collect`
 --
 ALTER TABLE `recipient`
   ADD CONSTRAINT `recipient_contact_FK` FOREIGN KEY (`address`) REFERENCES `contact` (`address`),
-  ADD CONSTRAINT `recipient_threshold0_FK` FOREIGN KEY (`id_threshold`) REFERENCES `threshold` (`id`);
+  ADD CONSTRAINT `recipient_threshold0_FK` FOREIGN KEY (`id_threshold`) REFERENCES `threshold` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `threshold`
 --
 ALTER TABLE `threshold`
-  ADD CONSTRAINT `threshold_Data_FK` FOREIGN KEY (`id_Data`) REFERENCES `data` (`id`),
+  ADD CONSTRAINT `threshold_Data_FK` FOREIGN KEY (`id_data`) REFERENCES `data` (`id`),
   ADD CONSTRAINT `threshold_caption0_FK` FOREIGN KEY (`mac_address`) REFERENCES `caption` (`mac_address`);
 COMMIT;
 
