@@ -12,7 +12,7 @@ class ContactDAO:
     def create(contact):
         """
         :param contact: Contact
-        error : 'pymysql.err.IntegrityError: (1062, "Duplicata du champ 'mac1' pour la clef 'PRIMARY'")
+        error : 'pymysql.err.IntegrityError: (1062, "Duplicata du champ 'contact1@gmail.com' pour la clef 'PRIMARY'")
         """
         connection = serverConnect()
         with connection.cursor() as cursor:
