@@ -4,7 +4,6 @@
 from entity.data import Data
 from entity.caption import Caption
 from entity.collect import Collect
-from repo.caption_dao import CaptionDAO
 from repo.data_dao import DataDAO
 from repo.db_connection import serverConnect
 
@@ -61,6 +60,29 @@ class CollectDAO:
         return result
 
     @staticmethod
+    def getById(id):
+        """
+        :param id: Integer
+        :return: Collect
+        """
+        con = serverConnect()
+        result = None
+        with con:
+            cur = con.cursor()
+            cur.execute("""SELECT c.id id, c.id_data id_data , d.name dname, d.unit unit, c.mac_address mac, ca.name caname, \
+                    c.date cdate, c.value cvalue FROM collect c \
+                    JOIN data d ON d.id = c.id_data \
+                    JOIN `caption` ca ON ca.mac_address = c.mac_address WHERE c.id = %s""", int(id))
+            row = cur.fetchone()
+            if row is not None:
+                data = Data(row["id_data"], row["dname"], row["unit"])
+                caption = Caption(row["mac"], row["caname"])
+                result = Collect(row["id"], data, caption, row["cdate"], row["cvalue"])
+            cur.close()
+        con.close()
+        return result
+
+    @staticmethod
     def update(collect):
         """
         :param collect: Collect
@@ -74,14 +96,14 @@ class CollectDAO:
         connection.close()
 
     @staticmethod
-    def delete(contact):
+    def delete(collect):
         """
-        :param contact: Contact
+        :param collect: Collect
         """
         connection = serverConnect()
         with connection.cursor() as cursor:
-            sql = "DELETE FROM `contact` WHERE `address` = %s"
-            cursor.execute(sql, (contact.email))
+            sql = "DELETE FROM `collect` WHERE `id` = %s"
+            cursor.execute(sql, collect.id)
         connection.commit()
         cursor.close()
         connection.close()
@@ -112,22 +134,39 @@ if __name__ == '__main__':
     CollectDAO.create(c5)
     CollectDAO.create(c6)"""
 
-
-    for collect in CollectDAO.getAll():
-        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(collect.caption.name ,
-                                                                  collect.data.name, collect.value, collect.date))
+    """for aCollect in CollectDAO.getAll():
+        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(aCollect.caption.name ,
+                                                                  aCollect.data.name, aCollect.value, aCollect.date))
     print("-----------------------------------------")
-    for collect in CollectDAO.getAll(macAddress="d7:ef:13:27:15:29"):
-        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(collect.caption.name ,
-                                                                  collect.data.name, collect.value, collect.date))
+    for aCollect in CollectDAO.getAll(macAddress="d7:ef:13:27:15:29"):
+        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(aCollect.caption.name ,
+                                                                  aCollect.data.name, aCollect.value, aCollect.date))
     print("-----------------------------------------")
-    for collect in CollectDAO.getAll(dataId="1"):
-        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(collect.caption.name ,
-                                                                  collect.data.name, collect.value, collect.date))
+    for aCollect in CollectDAO.getAll(dataId="1"):
+        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(aCollect.caption.name ,
+                                                                  aCollect.data.name, aCollect.value, aCollect.date))
     print("-----------------------------------------")
-    for collect in CollectDAO.getAll(dataId="1",macAddress="d7:ef:13:27:15:29"):
-        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(collect.caption.name ,
-                                                                  collect.data.name, collect.value, collect.date))
+    for aCollect in CollectDAO.getAll(dataId="1",macAddress="d7:ef:13:27:15:29"):
+        print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(aCollect.caption.name ,
+                                                                  aCollect.data.name, aCollect.value, aCollect.date))
+    """
+    """co = CollectDAO.getById(1)
+    print(co.value)
+    co.value = co.value -1
+    CollectDAO.update(co)
+    co = CollectDAO.getById(1)
+    print(co.value)
+    co.value = co.value +1
+    CollectDAO.update(co)"""
+    co = CollectDAO.getById(1)
+    CollectDAO.create(co)
+    print(co.id)
+    CollectDAO.delete(co)
+    co = CollectDAO.getById(co.id)
+    if co is None:
+        print("!!! SUCCESS !!!")
+    else:
+        print("??? ERROR ???")
     """for collect in CollectDAO.getAll(dataId="1"):
         print("Capteur:{0} Données:{1} Valeur:{2} Date{3}".format(collect.caption.name ,
                                                                   collect.data.name, collect.value, collect.date))

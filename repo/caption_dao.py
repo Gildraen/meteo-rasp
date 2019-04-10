@@ -50,8 +50,9 @@ class CaptionDAO:
         with con:
             cur = con.cursor()
             cur.execute("SELECT `mac_address`, `name` FROM `caption` WHERE `mac_address` = %s",macAddress)
-            fetch = cur.fetchone()
-            result = Caption(fetch["mac_address"], fetch["name"])
+            row = cur.fetchone()
+            if row is not None:
+                result = Caption(row["mac_address"], row["name"])
             cur.close()
         con.close()
         return result
@@ -87,12 +88,12 @@ if __name__ == '__main__':
     for caption in CaptionDAO.getAll():
         print("Adresse Mac:{0} Nom:{1}".format(caption.macAddress, caption.name))
         aCaption = caption
-    aCaption = CaptionDAO.getByMacAddress("mac2")
-    aCaption.name = "new Name2"
     print("-----------------------------------------")
-    CaptionDAO.update(aCaption)
+    aCaption.name = "new Name2"
+    aCaption = CaptionDAO.getByMacAddress("mac2")
+    """CaptionDAO.update(aCaption)
     for caption in CaptionDAO.getAll():
         print("Adresse Mac:{0} Nom:{1}".format(caption.macAddress, caption.name))
     CaptionDAO.delete(aCaption)
     for caption in CaptionDAO.getAll():
-        print("Adresse Mac:{0} Nom:{1}".format(caption.macAddress, caption.name))
+        print("Adresse Mac:{0} Nom:{1}".format(caption.macAddress, caption.name))"""

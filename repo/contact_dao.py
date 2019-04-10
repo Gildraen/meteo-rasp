@@ -50,8 +50,9 @@ class ContactDAO:
         with con:
             cur = con.cursor()
             cur.execute("SELECT `address`, `firstname`, `lastname` FROM `contact` WHERE `address` = %s", email)
-            fetch = cur.fetchone()
-            result = Contact(fetch["address"], fetch["firstname"], fetch["lastname"])
+            row = cur.fetchone()
+            if row is not None:
+                result = Contact(row["address"], row["firstname"], row["lastname"])
             cur.close()
         con.close()
         return result

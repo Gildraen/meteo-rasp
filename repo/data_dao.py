@@ -51,8 +51,9 @@ class DataDAO:
         with con:
             cur = con.cursor()
             cur.execute("SELECT `id`, `name`, `unit` FROM `data` WHERE `id` = %s", int(id))
-            fetch = cur.fetchone()
-            result = Data(fetch["id"], fetch["name"], fetch["unit"])
+            row = cur.fetchone()
+            if row is not None:
+                result = Data(row["id"], row["name"], row["unit"])
             cur.close()
         con.close()
         return result
