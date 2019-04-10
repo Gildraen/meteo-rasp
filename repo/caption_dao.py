@@ -7,7 +7,6 @@ from repo.db_connection import serverConnect
 
 class CaptionDAO:
     """
-    dependance 'python3 -m pip install PyMySQL'
     """
     @staticmethod
     def create(caption):
