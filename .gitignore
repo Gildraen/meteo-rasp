@@ -2,3 +2,5 @@
 *.ipr
 *.iws
 *.iml
+db.conf
+repo/db.conf
