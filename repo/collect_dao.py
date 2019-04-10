@@ -47,7 +47,7 @@ class CollectDAO:
             if ('dataId' in kwargs):
                 whereArgs.append("c.id_data = %s")
                 whereValues = whereValues + (kwargs['dataId'],)
-            sql = sql + " and ".join(whereArgs)
+            sql = sql + " and ".join(whereArgs) + "limit 20"
             cur.execute(sql,whereValues)
             rows = cur.fetchall()
             for row in rows:
