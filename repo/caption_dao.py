@@ -7,7 +7,6 @@ from repo.db_connection import serverConnect
 
 class CaptionDAO:
     """
-    dependance 'python3 -m pip install PyMySQL'
     """
     @staticmethod
     def create(caption):
@@ -84,6 +83,7 @@ class CaptionDAO:
         connection.close()
 
 if __name__ == '__main__':
+    aCaption = None
     for caption in CaptionDAO.getAll():
         print("Adresse Mac:{0} Nom:{1}".format(caption.macAddress, caption.name))
         aCaption = caption
