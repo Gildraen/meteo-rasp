@@ -13,8 +13,8 @@ class ScanDelegate(DefaultDelegate):
 				datas = dev.getValueText(22)
 #				print(datas)
 				bat = int(datas[20:22],16)
-				hum = str(int(datas[28:32],16)/100)
-				temp = str(int(datas[24:28],16)/100)
+				hum = int(datas[28:32],16)/100
+				temp = int(datas[24:28],16)/100
 				if (dev.addr == "d7:ef:13:27:15:29"):
 					print("----------------------------")					
 					print("externe =>")
