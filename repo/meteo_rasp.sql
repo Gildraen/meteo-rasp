@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `collect` (
   `id_data` int(11) NOT NULL,
   `mac_address` varchar(17) NOT NULL,
   `date` datetime NOT NULL,
-  `value` decimal(10,0) NOT NULL,
+  `value` decimal(5,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `collect_caption0_FK` (`mac_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -141,7 +141,7 @@ INSERT INTO `recipient` (`address`, `id_threshold`) VALUES
 DROP TABLE IF EXISTS `threshold`;
 CREATE TABLE IF NOT EXISTS `threshold` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` decimal(10,0) NOT NULL,
+  `value` decimal(5,2) NOT NULL,
   `higher` tinyint(1) NOT NULL,
   `last_date` datetime DEFAULT NULL,
   `frequency` int(11) NOT NULL,
