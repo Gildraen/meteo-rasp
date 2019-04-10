@@ -8,7 +8,11 @@
     <body>
         <h1>Ceci est la page d'accueil d'affichage des capteurs.</h1>
 
-		
+		<ul>
+			{% for capteur in capteurs %}
+			<li>capteur['name'] </li>
+			{% endfor %}
+		</ul>
 
     </body>
 </html>

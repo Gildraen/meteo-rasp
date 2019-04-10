@@ -16,6 +16,7 @@ def accueil():
 
     return render_template('accueil.html', capteurs=capteurs)
 	
+	
 if __name__ == '__main__':
     app.run(debug=True)
     print('toto')
