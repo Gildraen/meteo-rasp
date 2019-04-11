@@ -8,7 +8,8 @@ from entity.data import Data
 from repo.contact_dao import ContactDAO
 from repo.data_dao import DataDAO
 from repo.threshold_dao import ThresholdDAO
-
+import pygal
+from pygal.style import NeonStyle
 app = Flask(__name__)
 
 @app.route('/')
@@ -18,6 +19,7 @@ def accueil():
 	data = {}
 
 	for capteur in capteurs:
+		print(capteur.name)
 		collectsHum = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.HUMIDITY)
 		collectsTemp = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.TEMPERATURE)
 		collectsBat = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.BATTERY)
@@ -32,7 +34,33 @@ def changeName(macAddress):
 	CaptionDAO.update(capteur)
 	return redirect("/")
 
+@app.route('/graph')
+def graph():
 
+	capteurs = CaptionDAO.getAll()
+	data = {}
+
+	for capteur in capteurs:
+		humval = []
+		tempval=[]
+		collectsHum = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.HUMIDITY)
+		collectsTemp = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.TEMPERATURE)
+		for hum in collectsHum:
+			humval.append(hum.value)
+		for temp in collectsTemp:
+			tempval.append(temp.value)
+		print(capteur.name)
+		#print(collectsHum[0].date)
+		#print(collectsHum[len(collectsHum)-1].date)
+
+		if collectsHum is not None:
+			line_chart = pygal.Line(interpolate='cubic', style=NeonStyle, disable_xml_declaration=True)
+			line_chart.title = capteur.name
+			#line_chart.x_labels = map(str, range(collectsHum[0].date, collectsHum[len(collectsHum)-1].date))
+			line_chart.add('HUMIDITY', humval)
+			line_chart.add('TEMPERATURE', tempval)
+			data[capteur] = dict({'graph': line_chart})
+	return render_template('graph.html', data=data)
 
 
 
@@ -47,4 +75,4 @@ def seuils():
 	return render_template('seuils.html', data=data)
 
 if __name__ == '__main__':
-	app.run(debug=False)
+	app.run(debug=False, host='0.0.0.0', port='5000')

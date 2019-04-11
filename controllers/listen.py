@@ -33,6 +33,9 @@ class ScanDelegate(DefaultDelegate):
 			bat = int(datas[20:22],16)
 			hum = int(datas[28:32],16)/100
 			temp = int(datas[24:28],16)/100
+			#testData(bat, self.dataBat)
+			#testData(hum, self.dataHum)
+			#testData(temp, self.dataTemp)
 			caption = CaptionDAO.getByMacAddress(dev.addr)
 			print("----------------------------")
 			print(caption.name)
@@ -47,6 +50,38 @@ class ScanDelegate(DefaultDelegate):
 			CollectDAO.create(collectBat)
 			CollectDAO.create(collectTemp)
 
+	def sendMail(message):
+		TO = 'recipient@mailservice.com'	
+		SUBJECT = 'Problem data'
+
+		# Gmail Sign In
+		gmail_sender = 'meteo.rasp.jbgsp@gmail.com'
+		gmail_passwd = 'spjyukypntznaxul'
+
+		server = smtplib.SMTP('smtp.gmail.com', 587)
+		server.ehlo()
+		server.starttls()
+		server.login(gmail_sender, gmail_passwd)
+
+		BODY = '\r\n'.join(['To: %s' % TO,
+                	    'From: %s' % gmail_sender,
+                    	'Subject: %s' % SUBJECT,
+                    	'', message])
+
+		try:
+    			server.sendmail(gmail_sender, [TO], BODY)
+    			print ('email sent')
+		except:
+	    		print ('error sending mail')
+
+		server.quit()
+
+	def testData(data, dataTest)
+		#TODO
+		
+
+	
+		
 scanner = Scanner().withDelegate(ScanDelegate())
 #scanner.clear()
 #scanner.start()
@@ -56,3 +91,4 @@ while True :
 	print('...')
 	scanner.process()
 	scanner.stop()
+
