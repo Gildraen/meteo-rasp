@@ -38,7 +38,12 @@ def changeName(macAddress):
 
 @app.route('/seuils/')
 def seuils():
-	data = dict({'thresholds' : ThresholdDAO.getAll(), 'contacts': ContactDAO.getAll(), 'datas':DataDAO.getAll()})
+	data = dict({
+		'thresholds': ThresholdDAO.getAll(),
+		'contacts': ContactDAO.getAll(),
+		'datas': DataDAO.getAll(),
+		'captions': CaptionDAO.getAll()
+	})
 	return render_template('seuils.html', data=data)
 
 if __name__ == '__main__':

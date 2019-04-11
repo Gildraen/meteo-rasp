@@ -9,7 +9,7 @@
 
 <body>
 		<h1>Ceci est la page d'accueil d'affichage des capteurs.</h1>
-		<button type="button" class="btn btn-primary">Primary</button>
+
 		<table class="table table-hover">
 			<tr><th>Id</th>
 				<th>Capteur</th>
@@ -32,6 +32,7 @@
 
 			{% endfor %}
 		</table>
+
 		{% for threshold in data.thresholds %}
 		<!-- Modal -->
 		<div class="modal fade" id="{{ threshold.id }}" role="dialog">
@@ -45,11 +46,34 @@
 					</div>
 					<div class="modal-body">
 						<label for="capteur{{ threshold.id }}">Capteur:</label>
-						<select type="email" class="form-control" id="capteur{{ threshold.id }}">
-							<!--option value="volvo">Volvo</option-->
+						<select  class="form-control" id="capteur{{ threshold.id }}">
+							{% for caption in data.captions %}
+								<option  value="{{ caption.macAddress }}"
+										 {% if caption.macAddress == threshold.caption.macAddress %}
+										 selected
+										 {% endif %}
+								>
+									{{ caption.name }}
+								</option>
+							{% endfor %}
 						</select>
+						<label for="donnee{{ threshold.id }}">Donnée:</label>
+						<select  class="form-control" id="donnee{{ threshold.id }}">
+							{% for data in data.datas %}
+							<option  value="{{ data.id }}"
+									 {% if data.id == threshold.data.id %}
+									 selected
+									 {% endif %}
+							>
+								{{ data.name }}
+							</option>
+							{% endfor %}
+						</select>
+						<label for="value">Value:</label>
+						<input type="text" class="form-control" id="value" value="{{ threshold.value }}">
 
-
+						<label for="frq">Fréquence:</label>
+						<input type="text" class="form-control" id="frq" value="{{ threshold.frequency }}">
 
 
 
@@ -57,7 +81,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Modifier</button>
 					</div>
 				</div>
 
