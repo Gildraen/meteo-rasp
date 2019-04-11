@@ -48,8 +48,11 @@ class ScanDelegate(DefaultDelegate):
 			CollectDAO.create(collectTemp)
 
 scanner = Scanner().withDelegate(ScanDelegate())
-scanner.clear()
-scanner.start()
+#scanner.clear()
+#scanner.start()
 while True :
+	scanner.clear()
+	scanner.start()
 	print('...')
 	scanner.process()
+	scanner.stop()
