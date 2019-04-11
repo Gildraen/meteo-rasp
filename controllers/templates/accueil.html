@@ -8,7 +8,10 @@
     <body>
         <h1>Ceci est la page d'accueil d'affichage des capteurs.</h1>
 		<div>
+<table>
+<tr>
 			{% for caption, collectDict in data.items() %}
+<td>
 			<table>
 				<tr>
 					<th></th>
@@ -17,12 +20,11 @@
 				<tr>
 					{% for type, collectArray in collectDict.items() %}
 					<tr>
-						<td rowspan=' {{ collectArray|length }} '> {{ type }} </td>
+						<td rowspan=' {{ collectArray|length +1 }} '> {{ type }} </td>
 						{% for collect in collectArray %}
 							<tr>						
-								<td> {{collect.value}} </td>
+								<td> {{collect.value ~ collect.data.unit}} </td>
 								<td> {{collect.date}} </td>
-								<td> {{collect.data.id }} </td>
 							</tr>
 						{% endfor %}
 					</tr>
@@ -30,8 +32,11 @@
 				</tr>
 
 			</table>
+</td>
 			{% endfor %}
-		</div>
+</tr>
+</table		
+</div>
 		
 
 

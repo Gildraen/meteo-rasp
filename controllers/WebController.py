@@ -17,10 +17,9 @@ def accueil():
 	data = {}
 
 	for capteur in capteurs:
-		collectsHum = CollectDAO.getAll(macAddress=capteur.macAddress, DataId=Data.HUMIDITY)
-		collectsTemp = CollectDAO.getAll(macAddress=capteur.macAddress, DataId=Data.TEMPERATURE)
-		collectsBat = CollectDAO.getAll(macAddress=capteur.macAddress, DataId=Data.BATTERY)
-		print(len(collectsBat))
+		collectsHum = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.HUMIDITY)
+		collectsTemp = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.TEMPERATURE)
+		collectsBat = CollectDAO.getAll(macAddress=capteur.macAddress, dataId=Data.BATTERY)
 		data[capteur] = dict({'temperature' : collectsTemp, 'humidity': collectsHum, 'battery':collectsBat})
 	return render_template('accueil.html', data=data)
 
