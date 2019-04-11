@@ -2,12 +2,9 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask, render_template
-import sys
-sys.path.append('/home/projects/meteo-rasp/entity')
-sys.path.append('/home/projects/meteo-rasp/repo')
-from caption_dao import CaptionDAO
-from collect_dao import CollectDAO
-from data import Data
+from repo.caption_dao import CaptionDAO
+from repo.collect_dao import CollectDAO
+from entity.data import Data
 app = Flask(__name__)
 
 @app.route('/')

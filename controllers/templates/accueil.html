@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Accueil</title>
-		<meta http-equiv="Refresh" content="1" >
+		<meta http-equiv="Refresh" content="300" >
 	</head>
 
 	<body>
@@ -15,8 +15,13 @@
 					<td>
 						<table>
 							<tr>
-								<td>Name</td>	
-								<td>{{ caption.name }} </td>
+								<td> Name </td>
+								<td>
+									<form action="/name" method="post">
+										<input type="text" value="{{caption.name}}">
+										<button type="submit"> modifier </button>
+									</form>	
+								</td>
 							</tr>
 							{% for type, collectArray in collectDict.items() if collectArray|length  %}
 							<tr>
