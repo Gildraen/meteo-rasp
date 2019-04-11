@@ -4,3 +4,4 @@
 *.iml
 db.conf
 repo/db.conf
+*.pyc
