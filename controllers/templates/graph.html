@@ -1,0 +1,18 @@
+<!DOCTYPE html>                                                                                                               
+<html>                                                                                                                       
+    <head>                                                                                                                   
+        <meta charset="utf-8" />                                                                                             
+        <title>Graphs</title>                                                                                                
+        <script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/svg.jquery.js"></script>                    
+        <script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/pygal-tooltips.js"></script>            
+    </head>                                                                                                                  
+                                                                                                                             
+    <body>                                                                                                                   
+        <h1>Ceci est la page d'accueil d'affichage des graphiques.</h1>                                                      
+        <div>                                                                                                        
+        <table>                                                                                                                      
+            {% for caption, graphic in data.items() %}                                                                                                                     
+            {{graphic['graph'].render() | safe}}  
+            {% endfor %}                                                                                                                        
+        </table>                                                                                                                     
+        </div> 
