@@ -36,6 +36,7 @@ class CaptionDAO:
             sql = "SELECT `mac_address`, `name`, `active` FROM `caption`"
             if 'active' in kwargs:
                 sql = sql + " where active = " + str(1 if kwargs['active'] else 0)
+                sql = sql + " order by name"
             cur.execute(sql)
             rows = cur.fetchall()
             for row in rows:
