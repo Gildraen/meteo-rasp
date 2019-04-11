@@ -2,10 +2,8 @@
 # -*-coding:utf-8 -*
 
 
-import sys
-sys.path.append('/home/projects/meteo-rasp/entity')
-from data import Data
-from db_connection import serverConnect
+from entity.data import Data
+from repo.db_connection import serverConnect
 
 
 class DataDAO:

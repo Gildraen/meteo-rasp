@@ -35,6 +35,7 @@ DROP TABLE IF EXISTS `caption`;
 CREATE TABLE IF NOT EXISTS `caption` (
   `mac_address` varchar(17) NOT NULL,
   `name` varchar(20) NOT NULL,
+  `active` TINYINT(1) NOT NULL DEFAULT '1';
   PRIMARY KEY (`mac_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
