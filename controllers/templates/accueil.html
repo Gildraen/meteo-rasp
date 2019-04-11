@@ -1,44 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Accueil</title>
-    </head>
+	<head>
+		<meta charset="utf-8" />
+		<title>Accueil</title>
+		<meta http-equiv="Refresh" content="1" >
+	</head>
 
-    <body>
-        <h1>Ceci est la page d'accueil d'affichage des capteurs.</h1>
+	<body>
+	        <h1>Ceci est la page d'accueil d'affichage des capteurs.</h1>
 		<div>
-<table>
-<tr>
-			{% for caption, collectDict in data.items() %}
-<td>
 			<table>
 				<tr>
-					<th></th>
-					<th> {{caption.name }} </th>
-				</tr>
-				<tr>
-					{% for type, collectArray in collectDict.items() %}
-					<tr>
-						<td rowspan=' {{ collectArray|length +1 }} '> {{ type }} </td>
-						{% for collect in collectArray %}
-							<tr>						
-								<td> {{collect.value ~ collect.data.unit}} </td>
-								<td> {{collect.date}} </td>
+					{% for caption, collectDict in data.items() %}
+					<td>
+						<table>
+							<tr>
+								<td>Name</td>	
+								<td>{{ caption.name }} </td>
 							</tr>
-						{% endfor %}
-					</tr>
+							{% for type, collectArray in collectDict.items() if collectArray|length  %}
+							<tr>
+								<td> {{ type }} </td>
+								<td> {{ collectArray[0].value ~ collectArray[0].unit }} </td>
+							</tr>
+							{% endfor %}
+
+						</table>
+					</td>
 					{% endfor %}
 				</tr>
-
 			</table>
-</td>
-			{% endfor %}
-</tr>
-</table		
-</div>
-		
-
-
-    </body>
+		</div>
+		<div>
+			<table>
+				<tr>
+				{% for caption, collectDict in data.items() %}
+					<td>
+						<table>
+							<tr>
+								<th></th>
+								<th> {{caption.name }} </th>
+							</tr>
+							<tr>
+							{% for type, collectArray in collectDict.items() %}
+							<tr>
+								<td rowspan=' {{ collectArray|length +1 }} '> {{ type }} </td>
+								{% for collect in collectArray %}
+								<tr>						
+									<td> {{collect.value ~ collect.data.unit}} </td>
+									<td> {{collect.date}} </td>
+								</tr>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+							</tr>
+						</table>
+					</td>
+				{% endfor %}
+				</tr>
+			</table>		
+		</div>
+	</body>
 </html>
