@@ -172,7 +172,7 @@ ALTER TABLE `collect`
 -- Contraintes pour la table `recipient`
 --
 ALTER TABLE `recipient`
-  ADD CONSTRAINT `recipient_contact_FK` FOREIGN KEY (`address`) REFERENCES `contact` (`address`),
+  ADD CONSTRAINT `recipient_contact_FK` FOREIGN KEY (`address`) REFERENCES `contact` (`address`) ON DELETE CASCADE,
   ADD CONSTRAINT `recipient_threshold0_FK` FOREIGN KEY (`id_threshold`) REFERENCES `threshold` (`id`) ON DELETE CASCADE;
 
 --
