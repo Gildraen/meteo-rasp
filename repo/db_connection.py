@@ -12,7 +12,7 @@ def serverConnect():
        - InternalError err.args[0]==1049 : "La base de données n'éxiste pas"
     """
     config = configparser.ConfigParser()
-    config.read("/home/projects/meteo-rasp/db.conf")
+    config.read("D:\Projects\IotPython\meteo-rasp\db.conf")
 
     host = config['options']['host']
     port = int(config['options']['port'])

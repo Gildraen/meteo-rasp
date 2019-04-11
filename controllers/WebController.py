@@ -5,6 +5,10 @@ from flask import Flask, render_template, request, redirect
 from repo.caption_dao import CaptionDAO
 from repo.collect_dao import CollectDAO
 from entity.data import Data
+from repo.contact_dao import ContactDAO
+from repo.data_dao import DataDAO
+from repo.threshold_dao import ThresholdDAO
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -32,7 +36,10 @@ def changeName(macAddress):
 
 
 
-
+@app.route('/seuils/')
+def seuils():
+	data = dict({'thresholds' : ThresholdDAO.getAll(), 'contacts': ContactDAO.getAll(), 'datas':DataDAO.getAll()})
+	return render_template('seuils.html', data=data)
 
 if __name__ == '__main__':
 	app.run(debug=False)
