@@ -17,8 +17,8 @@
 							<tr>
 								<td> Name </td>
 								<td>
-									<form action="/name" method="post">
-										<input type="text" value="{{caption.name}}">
+									<form action="/name/{{caption.macAddress}}" method="post">
+										<input type="text" name="name" value="{{caption.name}}">
 										<button type="submit"> modifier </button>
 									</form>	
 								</td>
